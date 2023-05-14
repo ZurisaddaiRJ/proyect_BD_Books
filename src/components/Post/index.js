@@ -13,7 +13,7 @@ class Post extends Component {
 
                     <a className="Post-user-profilepicture">
 
-                        <img src="https://xmag.live/wp-content/uploads/2022/04/blackpink-jennie-rose-lisa-jisoo-album-comeback-kpop-rumor-info-1.jpeg" />
+                        <img src="https://xmag.live/wp-content/uploads/2022/04/blackpink-jennie-rose-lisa-jisoo-album-comeback-kpop-rumor-info-1.jpeg" alt='Textp'/>
 
                     </a>
 

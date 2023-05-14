@@ -11,11 +11,9 @@ class Post extends Component {
 
                 <div className="Post-user">
 
-                    <a className="Post-user-profilepicture">
+                    <div className="Post-user-profilepicture" href="#"> <img src="https://xmag.live/wp-content/uploads/2022/04/blackpink-jennie-rose-lisa-jisoo-album-comeback-kpop-rumor-info-1.jpeg"alt='Textp'/>
 
-                        <img src="https://xmag.live/wp-content/uploads/2022/04/blackpink-jennie-rose-lisa-jisoo-album-comeback-kpop-rumor-info-1.jpeg" />
-
-                    </a>
+                    </div>
 
                     <div className="Post-user-nickname">
 

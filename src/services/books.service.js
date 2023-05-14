@@ -20,5 +20,5 @@ class BooksDataService {
   }
 
 }
-
-export default new BooksDataService();
+const BooksDataServiceInstance= new BooksDataService();
+export default BooksDataServiceInstance

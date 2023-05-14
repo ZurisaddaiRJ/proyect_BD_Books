@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component} from "react";
 //import TutorialDataService from "../services/tutorial.service";
 import BooksDataService from "../services/books.service";
 
@@ -143,7 +143,6 @@ export default class AddTutorial extends Component {
                 } />
                 <button disabled={!this.state.file}>upload to firebase</button>
               </form>
-              <img src={this.state.url} alt="" />
 
             </div>
 

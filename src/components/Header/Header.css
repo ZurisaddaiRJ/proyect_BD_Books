@@ -1,0 +1,62 @@
+i.Nav {
+
+    background-color: #fff;
+
+    border-bottom: 1px solid rgba(0, 0, 0, 0.0975);
+
+    position: fixed;
+
+    top: 0;
+
+    width: 100%;
+
+    z-index: 2;
+
+    -webkit-transition: height 0.2s ease-in-out;
+
+    transition: height 0.2s ease-in-out;
+
+    height: 77px;
+
+}
+
+.Nav-menus {
+
+    display: inline-block;
+
+    flex-direction: row;
+
+    height: 77px;
+
+    width: 70%;
+
+    margin: 0 auto;
+
+    padding: 26px 40px;
+
+}
+
+.Nav-brand-logo {
+
+    background-image: url(./logo.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: 35px 35px;
+    text-indent: -1000px;
+    min-width: 10%;
+
+
+}
+
+.Nav-brand {
+
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-size: 1.4rem;
+    font-style: oblique;
+    font-weight: bold;
+    color: rgb(3, 3, 3);
+    margin-bottom: 20px;
+    background-position: right;
+
+}

@@ -1,0 +1,95 @@
+.Post {
+
+    border-radius: 10px;
+
+    border: 5px solid #be8c6b;
+
+    background-color: #fff;
+
+    margin-bottom: 60px;
+
+    margin-left: 30%;
+
+    margin-right: 30%;
+
+}
+
+.Post-user {
+
+    display: flex;
+
+    padding: 16px;
+
+    align-items: center;
+
+}
+
+.Post-user-profilepicture {
+
+    width: 50px;
+
+    height: 50px;
+}
+
+.Post-user-profilepicture img {
+    
+
+    width: 150%;
+
+    height: 150%;
+
+    border-radius: 50%;
+
+}
+
+.Post-user-nickname {
+
+    margin-left: 25px;
+
+    font-family:  'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+    font-size: 20px;
+
+    color: #000000;
+
+    font-weight: bold;
+
+}
+
+.Post-image-bg {
+
+    background-color: #efefef;
+
+}
+
+.Post-image img {
+
+    display: block;
+
+    width: 100%;
+
+}
+
+.Post-caption {
+
+    padding: 10px 10px;
+
+}
+
+.Post-caption strong {
+
+    font-family: 'PT Sans', sans-serif;
+
+    font-weight: bold;
+
+}
+
+.vjs-fade-out {
+
+    display: none;
+
+    visibility: hidden;
+
+    opacity: 0;
+
+}

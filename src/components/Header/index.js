@@ -12,7 +12,7 @@ class Header extends Component {
 
                 <div className="navbar-nav mr-auto">
 
-                    <div className="nav-link " href="#"> <img src="https://img.icons8.com/color/70/null/totoro.png" />
+                    <div className="nav-link " href="#"> <img src="https://img.icons8.com/color/70/null/totoro.png" alt='Textp'/>
                         | Good Books
                     </div>
 

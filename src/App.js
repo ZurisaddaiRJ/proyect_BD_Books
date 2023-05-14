@@ -38,7 +38,6 @@ class App extends Component {
         <Post />
 
         <div className="container mt-3">
-          <h2></h2>
           <Routes>
             <Route path="/tutorials" element={<BooksList />} />
             <Route path="/add" element={<AddBooks />} />

@@ -143,7 +143,6 @@ export default class AddTutorial extends Component {
                 } />
                 <button disabled={!this.state.file}>upload to firebase</button>
               </form>
-              <img src={this.state.url} alt="" />
 
             </div>
 

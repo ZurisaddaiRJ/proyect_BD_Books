@@ -78,19 +78,27 @@ export default class BooksList extends Component {
                   className={ "list-group-item " + (index === currentIndex ? "active" : "") }
                   onClick={() => this.setActiveTutorial(tutorial, index)}
                   key={index}
+                  
                 >
+                  
                   {tutorial.title}
+                  <img src={tutorial.url} alt="" ></img>
+                  
                   <LikeButton />
                   <Comment />
+                  
                 </li>
+                
               ))}
           </ul>
         </div>
         <div className="col-md-6">
           {currentTutorial ? (
             <Books
+              
               tutorial={currentTutorial}
               refreshList={this.refreshList}
+              
             />
           ) : (
             <div>

@@ -4,6 +4,7 @@ import BooksDataService from "../services/books.service";
 import Books from "./books.component";
 import LikeButton from "./LikeButton";
 import Comment from "./comentarios.component"; 
+import './books-list.css';
 
 export default class BooksList extends Component {
   constructor(props) {
@@ -67,8 +68,8 @@ export default class BooksList extends Component {
     const { tutorials, currentTutorial, currentIndex } = this.state;
 
     return (
-      <div className="list row">
-        <div className="col-md-6">
+      <div className="row">
+        <div className="tamano-3">
           <h4>Books List</h4>
 
           <ul className="list-group">
@@ -92,7 +93,7 @@ export default class BooksList extends Component {
               ))}
           </ul>
         </div>
-        <div className="col-md-6">
+        <div className="tamano-3">
           {currentTutorial ? (
             <Books
               

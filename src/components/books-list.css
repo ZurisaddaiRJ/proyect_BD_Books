@@ -1,0 +1,20 @@
+.tamano-3 {
+    width: 500px;
+    height: 500px;
+    display: inline-block;
+    padding: 50px;
+    box-sizing: border-box;
+}
+
+
+img{
+    width: 50%;
+    height: auto;
+  }
+  @supports(object-fit: cover){
+      img{
+        height: auto;
+        object-fit: cover;
+        object-position: center center;
+      }
+  }

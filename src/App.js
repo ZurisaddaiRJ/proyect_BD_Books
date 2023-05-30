@@ -10,7 +10,7 @@ import AddBooks from "./components/add-books.component";
 import BooksList from "./components/books-list.component";
 import Header from './components/Header';
 import Post from './components/Post';
-
+import Login from "./components/Login/login";
 
 class App extends Component {
 
@@ -32,6 +32,11 @@ class App extends Component {
                 add
               </Link>
             </li>
+            <li className="nav-item">
+              <Link to={"/login"} className="nav-link">
+                Login
+              </Link>
+            </li>
 
           </div>
         </nav>
@@ -41,6 +46,7 @@ class App extends Component {
           <Routes>
             <Route path="/tutorials" element={<BooksList />} />
             <Route path="/add" element={<AddBooks />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </div>
       </div >

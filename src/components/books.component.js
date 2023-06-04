@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import BooksDataService from "../services/books.service";
 
+import "firebase/compat/storage";
+import firebase from "firebase/compat/app";
+export const storage = firebase.storage;
+
 export default class Books extends Component {
   constructor(props) {
     super(props);
@@ -16,6 +20,9 @@ export default class Books extends Component {
         title: "",
         description: "",
         published: false,
+        submitted: false,
+        file: null,
+        url: ""
       },
       message: "",
     };
@@ -31,6 +38,12 @@ export default class Books extends Component {
     }
 
     return prevState.currentTutorial;
+  }
+
+  onChangeFile(e) {
+    this.setState({
+      file: e.target.files[0]
+    });
   }
 
   componentDidMount() {
@@ -178,7 +191,7 @@ export default class Books extends Component {
               Update
             </button>
             <p>{this.state.message}</p>
-            
+
 
           </div>
 

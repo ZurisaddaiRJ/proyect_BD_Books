@@ -3,8 +3,9 @@ import BooksDataService from "../services/books.service";
 
 import Books from "./books.component";
 import LikeButton from "./LikeButton";
-import Comment from "./comentarios.component"; 
+import Comment from "./comentarios.component";
 import './books-list.css';
+
 
 export default class BooksList extends Component {
   constructor(props) {
@@ -64,7 +65,7 @@ export default class BooksList extends Component {
     });
   }
 
-  render() { 
+  render() {
     const { tutorials, currentTutorial, currentIndex } = this.state;
 
     return (
@@ -76,30 +77,30 @@ export default class BooksList extends Component {
             {tutorials &&
               tutorials.map((tutorial, index) => (
                 <li
-                  className={ "list-group-item " + (index === currentIndex ? "active" : "") }
+                  className={"list-group-item " + (index === currentIndex ? "active" : "")}
                   onClick={() => this.setActiveTutorial(tutorial, index)}
                   key={index}
-                  
+
                 >
-                  
+
                   {tutorial.title}
                   <img src={tutorial.url} alt="" ></img>
-                  
+
                   <LikeButton />
                   <Comment />
-                  
+
                 </li>
-                
+
               ))}
           </ul>
         </div>
         <div className="tamano-3">
           {currentTutorial ? (
             <Books
-              
+
               tutorial={currentTutorial}
               refreshList={this.refreshList}
-              
+
             />
           ) : (
             <div>

@@ -93,7 +93,7 @@ export default class BooksList extends Component {
 
                   <LikeButton pubId={tutorial.id} />  <LoveButton pubId={tutorial.id} /> <SmileButton pubId={tutorial.id} /> <SurpriseButton pubId={tutorial.id} />
                   <SadButton pubId={tutorial.id} /> <AngryButton pubId={tutorial.id} />
-                  <Comment />
+                  <Comment pubId={tutorial.id} />
 
                 </li>
 

@@ -1,37 +1,75 @@
-import React, { useState } from 'react';
-import './Like.css';
+import React, { useEffect, useState } from 'react';
 import KafkaService from "../services/kafka.service";
+import './Like.css';
+import { auth } from '../firebase';
+import { onAuthStateChanged } from 'firebase/auth';
+
+const MongoDBService = require('../services/MongoDb.service');
+
+function LikeButton({ pubId }) {
+    const [user, setUser] = useState(null);
+    const [loves, setLoves] = useState(0);
+    const [love, setLove] = useState(false);
+
+    useEffect(() => {
+        // Crea una instancia de MongoDBService con la URL base del backend
+        const mongoDBService = new MongoDBService('http://localhost:3001');
+        const unsubuscribe = onAuthStateChanged(auth, (currentUser) => {
+            console.log({ currentUser });
+            setUser(currentUser);
+        });
 
 
-function saveLove(e, status) {
 
-    let data = {
-        id: 0,
-        status: status
-    };
+        // Define los parámetros deseados para la llamada a getReactionsByObjectAndReaction
+        const objectId = pubId;
+        const reactionId = 'love';
 
-    console.log(JSON.stringify(data));
+        // Define una función asincrónica para cargar los datos
+        const fetchData = async () => {
+            try {
+                const response = await mongoDBService.getReactionsByObjectAndReaction(objectId, reactionId);
+                const data = response[0];
+                setLoves(data.n);
+            } catch (error) {
+                console.error(error);
+            }
+        };
 
-    KafkaService.reaction("love-button");
-    e.preventDefault();
-}
+        // Llama a fetchData al montar o actualizar el componente
+        fetchData();
+        return () => unsubuscribe();
+    })
 
+    function saveLove(e) {
 
-function LoveButton() {
-    const [loves, setLikes] = useState(0);
-    const [loved, setLiked] = useState(false);
+        const uId = user.email;
+        const oId = pubId;
+        const rId = "love"
+        console.log(uId, oId, rId);
+        KafkaService.reaction(uId, oId, rId);
+        e.preventDefault();
+    }
+
     return (
-        <div className="like-button-container">
-            <button id="like"
-                className={`reaction reaction-love${loved ? 'liked' : ''}`}
-                onClick={() => {
-                    setLikes(loves + 1);
-                    setLiked(true);
-                }}
-            >
-                 
+        <div className="reactions">
+
+            <button id="love"
+                className={`reaction reaction-love ${love ? 'love' : ''}`}
+                onClick={(e) => {
+
+                    e.preventDefault();
+                    saveLove(e, 1);
+                    setLoves(loves + 1);
+                    setLove(true);
+
+                }
+                } >{loves}
+
             </button>
+
         </div>
     );
+
 }
-export default LoveButton
+export default LikeButton

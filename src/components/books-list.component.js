@@ -3,6 +3,11 @@ import BooksDataService from "../services/books.service";
 
 import Books from "./books.component";
 import LikeButton from "./LikeButton";
+import LoveButton from "./LoveButton.component";
+import SmileButton from "./SmileButton";
+import SurpriseButton from "./Surprise";
+import SadButton from "./SadButton";
+import AngryButton from "./AngryButton";
 import Comment from "./comentarios.component";
 import './books-list.css';
 
@@ -84,9 +89,10 @@ export default class BooksList extends Component {
                 >
 
                   {tutorial.title}
-                  <img src={tutorial.url} alt="" ></img>
+                  <img src={tutorial.url} alt="" ></img> 
 
-                  <LikeButton />
+                  <LikeButton pubId={tutorial.id} />  <LoveButton pubId={tutorial.id} /> <SmileButton pubId={tutorial.id} /> <SurpriseButton pubId={tutorial.id} />
+                  <SadButton pubId={tutorial.id} /> <AngryButton pubId={tutorial.id} />
                   <Comment />
 
                 </li>

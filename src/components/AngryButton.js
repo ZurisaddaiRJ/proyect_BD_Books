@@ -6,10 +6,12 @@ import { onAuthStateChanged } from 'firebase/auth';
 
 const MongoDBService = require('../services/MongoDb.service');
 
-function LikeButton({ pubId }) {
+
+function AngryButton({ pubId }) {
     const [user, setUser] = useState(null);
-    const [loves, setLoves] = useState(0);
-    const [love, setLove] = useState(false);
+
+    const [angrys, setAngrys] = useState(0);
+    const [angry, setAngry] = useState(false);
 
     useEffect(() => {
         // Crea una instancia de MongoDBService con la URL base del backend
@@ -18,19 +20,19 @@ function LikeButton({ pubId }) {
             console.log({ currentUser });
             setUser(currentUser);
         });
-
+        
 
 
         // Define los parámetros deseados para la llamada a getReactionsByObjectAndReaction
         const objectId = pubId;
-        const reactionId = 'love';
+        const reactionId = 'Angry';
 
         // Define una función asincrónica para cargar los datos
         const fetchData = async () => {
             try {
                 const response = await mongoDBService.getReactionsByObjectAndReaction(objectId, reactionId);
                 const data = response[0];
-                setLoves(data.n);
+                setAngrys(data.n);
             } catch (error) {
                 console.error(error);
             }
@@ -41,11 +43,11 @@ function LikeButton({ pubId }) {
         return () => unsubuscribe();
     })
 
-    function saveLove(e) {
+    function saveAngry(e) {
 
         const uId = user.email;
         const oId = pubId;
-        const rId = "love"
+        const rId = "Angry"
         console.log(uId, oId, rId);
         KafkaService.reaction(uId, oId, rId);
         e.preventDefault();
@@ -53,18 +55,17 @@ function LikeButton({ pubId }) {
 
     return (
         <div className="reactions">
-
-            <button id="love"
-                className={`reaction reaction-love ${love ? 'love' : ''}`}
+           
+            <button
+                className={`reaction reaction-angry ${angry ? 'angry' : ''}`}
                 onClick={(e) => {
-
+                    setAngrys(angrys + 1);
+                    setAngry(true);
                     e.preventDefault();
-                    saveLove(e, 1);
-                    setLoves(loves + 1);
-                    setLove(true);
+                    saveAngry(e, 1)
 
-                }
-                } >{loves}
+                }}
+            > {angrys}
 
             </button>
 
@@ -72,4 +73,4 @@ function LikeButton({ pubId }) {
     );
 
 }
-export default LikeButton
+export default AngryButton

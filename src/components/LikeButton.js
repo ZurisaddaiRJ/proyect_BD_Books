@@ -1,104 +1,56 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import KafkaService from "../services/kafka.service";
 import './Like.css';
+import { auth } from '../firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 
-function saveLove(e, status) {
+const MongoDBService = require('../services/MongoDb.service');
 
-    let data = {
-        id: 0,
-        status: status
-    };
-
-    console.log(JSON.stringify(data));
-
-    KafkaService.reaction("love-button");
-    e.preventDefault();
-}
-
-function saveLike(e, status) {
-
-    let data = {
-        id: 0,
-        status: status
-    };
-
-    console.log(JSON.stringify(data));
-
-    KafkaService.reaction("like-button");
-    e.preventDefault();
-}
-
-function saveHaha(e, status) {
-
-    let data = {
-        id: 0,
-        status: status
-    };
-
-    console.log(JSON.stringify(data));
-
-    KafkaService.reaction("i-jaja");
-    e.preventDefault();
-}
-
-function saveWow(e, status) {
-
-    let data = {
-        id: 0,
-        status: status
-    };
-
-    console.log(JSON.stringify(data));
-
-    KafkaService.reaction("i-wow");
-    e.preventDefault();
-}
-
-function saveSad(e, status) {
-
-    let data = {
-        id: 0,
-        status: status
-    };
-
-    console.log(JSON.stringify(data));
-
-    KafkaService.reaction("i-sad");
-    e.preventDefault();
-}
-
-function saveAngry(e, status) {
-
-    let data = {
-        id: 0,
-        status: status
-    };
-
-    console.log(JSON.stringify(data));
-
-    KafkaService.reaction("i-angry");
-    e.preventDefault();
-}
-
-function LikeButton() {
-
-    const [loves, setLoves] = useState(0);
-    const [love, setLove] = useState(false);
+function LikeButton({ pubId }) {
+    const [user, setUser] = useState(null);
 
     const [likes, setLikes] = useState(0);
     const [like, setLike] = useState(false);
 
-    const [smiles, setSmiles] = useState(0);
-    const [smile, setSmile] = useState(false);
+    useEffect(() => {
+        // Crea una instancia de MongoDBService con la URL base del backend
+        const mongoDBService = new MongoDBService('http://localhost:3001');
+        const unsubuscribe = onAuthStateChanged(auth, (currentUser) => {
+            console.log({ currentUser });
+            setUser(currentUser);
+        });
 
-    const [sorprises, setSorprises] = useState(0);
-    const [sorpri, setSorpri] = useState(false);
 
-    const [sads, setSads] = useState(0);
-    const [sad, setSad] = useState(false);
 
-    const [angrys, setAngrys] = useState(0);
-    const [angry, setAngry] = useState(false);
+        // Define los parámetros deseados para la llamada a getReactionsByObjectAndReaction
+        const objectId = pubId;
+        const reactionId = 'like';
+
+        // Define una función asincrónica para cargar los datos
+        const fetchData = async () => {
+            try {
+                const response = await mongoDBService.getReactionsByObjectAndReaction(objectId, reactionId);
+                const data = response[0];
+                setLikes(data.n);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        // Llama a fetchData al montar o actualizar el componente
+        fetchData();
+        return () => unsubuscribe();
+    })
+
+    function saveLike(e) {
+
+        const uId = user.email;
+        const oId = pubId;
+        const rId = "like"
+        console.log(uId, oId, rId);
+        KafkaService.reaction(uId, oId, rId);
+        e.preventDefault();
+    }
 
     return (
         <div className="reactions">
@@ -110,70 +62,7 @@ function LikeButton() {
                     e.preventDefault();
                     saveLike(e, 1)
                 }}
-            > {likes} 
-
-            </button>
-
-            <button id="love"
-                className={`reaction reaction-love ${love ? 'love' : ''}`}
-                onClick={(e) => {
-                    setLoves(loves + 1);
-                    setLove(true);
-                    e.preventDefault();
-                    saveLove(e, 1)
-
-                }
-                } >{loves}
-
-            </button>
-
-            <button
-                className={`reaction reaction-haha ${smile ? 'smile' : ''}`}
-                onClick={(e) => {
-                    setSmiles(smiles + 1);
-                    setSmile(true);
-                    e.preventDefault();
-                    saveHaha(e, 1)
-
-                }
-                } > {smiles}
-
-            </button>
-
-            <button
-                className={`reaction reaction-wow ${sorpri ? 'sorpri' : ''}`}
-                onClick={(e) => {
-                    setSorprises(sorprises + 1);
-                    setSorpri(true);
-                    e.preventDefault();
-                    saveWow(e, 1)
-                }}
-                > {sorprises}
-
-            </button>
-
-            <button
-                className={`reaction reaction-sad ${sad ? 'sad' : ''}`}
-                onClick={(e) => {
-                    setSads(sads + 1);
-                    setSad(true);
-                    e.preventDefault();
-                    saveSad(e, 1)
-                }}
-                > {sads}
-
-            </button>
-
-            <button
-                className={`reaction reaction-angry ${angry ? 'angry' : ''}`}
-                onClick={(e) => {
-                    setAngrys(angrys+ 1);
-                    setAngry(true);
-                    e.preventDefault();
-                    saveAngry(e, 1)
-                    
-                }}
-                > {angrys}
+            > {likes}
 
             </button>
 

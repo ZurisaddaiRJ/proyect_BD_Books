@@ -57,10 +57,11 @@ function LikeButton({ pubId }) {
             <button
                 className={`reaction reaction-haha ${smile ? 'smile' : ''}`}
                 onClick={(e) => {
+                    e.preventDefault();
+                    saveHaha(e, 1);
                     setSmiles(smiles + 1);
                     setSmile(true);
-                    e.preventDefault();
-                    saveHaha(e, 1)
+                    
 
                 }
                 } > {smiles}

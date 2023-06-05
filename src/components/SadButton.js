@@ -58,10 +58,11 @@ function LikeButton({ pubId }) {
             <button
                 className={`reaction reaction-sad ${sad ? 'sad' : ''}`}
                 onClick={(e) => {
+                    e.preventDefault();
+                    saveSad(e, 1);
                     setSads(sads + 1);
                     setSad(true);
-                    e.preventDefault();
-                    saveSad(e, 1)
+                    
                 }}
             > {sads}
 

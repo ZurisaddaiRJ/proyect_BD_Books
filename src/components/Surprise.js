@@ -9,8 +9,8 @@ const MongoDBService = require('../services/MongoDb.service');
 function LikeButton({ pubId }) {
     const [user, setUser] = useState(null);
 
-    const [likes, setLikes] = useState(0);
-    const [like, setLike] = useState(false);
+    const [sorprises, setSorprises] = useState(0);
+    const [sorpri, setSorpri] = useState(false);
 
     useEffect(() => {
         // Crea una instancia de MongoDBService con la URL base del backend
@@ -24,14 +24,14 @@ function LikeButton({ pubId }) {
 
         // Define los parámetros deseados para la llamada a getReactionsByObjectAndReaction
         const objectId = pubId;
-        const reactionId = 'like';
+        const reactionId = 'Surprise';
 
         // Define una función asincrónica para cargar los datos
         const fetchData = async () => {
             try {
                 const response = await mongoDBService.getReactionsByObjectAndReaction(objectId, reactionId);
                 const data = response[0];
-                setLikes(data.n);
+                setSorprises(data.n);
             } catch (error) {
                 console.error(error);
             }
@@ -42,11 +42,10 @@ function LikeButton({ pubId }) {
         return () => unsubuscribe();
     })
 
-    function saveLike(e) {
-
+    function saveWow(e) {
         const uId = user.email;
         const oId = pubId;
-        const rId = "like"
+        const rId = "surprise"
         console.log(uId, oId, rId);
         KafkaService.reaction(uId, oId, rId);
         e.preventDefault();
@@ -54,19 +53,18 @@ function LikeButton({ pubId }) {
 
     return (
         <div className="reactions">
-            <button id="like"
-                className={`reaction reaction-like ${like ? 'like' : ''}`}
+
+            <button
+                className={`reaction reaction-wow ${sorpri ? 'sorpri' : ''}`}
                 onClick={(e) => {
+                    setSorprises(sorprises + 1);
+                    setSorpri(true);
                     e.preventDefault();
-                    saveLike(e, 1);
-                    setLikes(likes + 1);
-                    setLike(true);
-                    
+                    saveWow(e, 1)
                 }}
-            > {likes}
+            > {sorprises}
 
             </button>
-
 
         </div>
     );

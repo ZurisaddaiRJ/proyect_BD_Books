@@ -9,8 +9,8 @@ const MongoDBService = require('../services/MongoDb.service');
 function LikeButton({ pubId }) {
     const [user, setUser] = useState(null);
 
-    const [likes, setLikes] = useState(0);
-    const [like, setLike] = useState(false);
+    const [sads, setSads] = useState(0);
+    const [sad, setSad] = useState(false);
 
     useEffect(() => {
         // Crea una instancia de MongoDBService con la URL base del backend
@@ -24,14 +24,14 @@ function LikeButton({ pubId }) {
 
         // Define los parámetros deseados para la llamada a getReactionsByObjectAndReaction
         const objectId = pubId;
-        const reactionId = 'like';
+        const reactionId = 'Sad';
 
         // Define una función asincrónica para cargar los datos
         const fetchData = async () => {
             try {
                 const response = await mongoDBService.getReactionsByObjectAndReaction(objectId, reactionId);
                 const data = response[0];
-                setLikes(data.n);
+                setSads(data.n);
             } catch (error) {
                 console.error(error);
             }
@@ -42,11 +42,11 @@ function LikeButton({ pubId }) {
         return () => unsubuscribe();
     })
 
-    function saveLike(e) {
+    function saveSad(e) {
 
         const uId = user.email;
         const oId = pubId;
-        const rId = "like"
+        const rId = "Sad"
         console.log(uId, oId, rId);
         KafkaService.reaction(uId, oId, rId);
         e.preventDefault();
@@ -54,19 +54,19 @@ function LikeButton({ pubId }) {
 
     return (
         <div className="reactions">
-            <button id="like"
-                className={`reaction reaction-like ${like ? 'like' : ''}`}
+
+            <button
+                className={`reaction reaction-sad ${sad ? 'sad' : ''}`}
                 onClick={(e) => {
                     e.preventDefault();
-                    saveLike(e, 1);
-                    setLikes(likes + 1);
-                    setLike(true);
+                    saveSad(e, 1);
+                    setSads(sads + 1);
+                    setSad(true);
                     
                 }}
-            > {likes}
+            > {sads}
 
             </button>
-
 
         </div>
     );
